@@ -30,7 +30,37 @@ int main() {
     row_data = strtok(NULL, ",");
     while (row_data != NULL)
     {
+        if (row_data[strlen(row_data)-1]=='\n')
+            row_data[strlen(row_data)-1] = '\0';
+
+        memset(buff, '\0', 1024);
+
         printf("\t%s\n", row_data);
+        if (row_data[0]=='\"' && row_data[strlen(row_data)-1]=='\"')
+        {
+            row_data++;
+            row_data[strlen(row_data)-1] = '\0';
+            for (i=0; i<strlen(row_data); i++)
+                buff[i] = row_data[i];
+        } else if (row_data[0]=='\"' && row_data[strlen(row_data)-1]!='\"') {
+            row_data++;
+            j = 0;
+            do
+            {
+                for (i=0; i<strlen(row_data); i++, j++)
+                    buff[j] = row_data[i];
+
+                row_data = strtok(NULL, ",");
+            } while (row_data[strlen(row_data)-1]!='\"');
+            row_data[strlen(row_data)-1] = '\0';
+            for (i=0; i<strlen(row_data); i++, j++)
+                buff[j] = row_data[i];
+        } else {
+            for (i=0; i<strlen(row_data); i++)
+                buff[i] = row_data[i];
+        }
+        printf("\t\t%s\n", buff);
+
         row_data = strtok(NULL, ",");
     }
   }
