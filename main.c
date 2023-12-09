@@ -24,49 +24,15 @@ int main() {
   while (fgets(line, 1024, fp)) {
     // 解讀每一列的第一欄
     row_name = strtok(line, ",");
-    printf("%s: ", row_name);
+    printf("%s:\n ", row_name);
 
     // 解讀每列第一欄之後的每一欄
     row_data = strtok(NULL, ",");
     while (row_data != NULL)
     {
-        if (row_data[0] == '\"') // 判斷第一個字元是否為雙引號
-        {
-            row_data++;
-            n = strlen(row_data);
-            if (row_data[n-1] == '\"') // 判斷最後一個字元是否為雙引號
-            {
-                for (i=0; i<n-1; i++)
-                    buff[i] = row_data[i];
-            } else if (row_data[n-1] == '\n') //判斷最後一個字元是否為換行字元
-            {
-                for (i=0; i<n-2; i++)
-                    buff[i] = row_data[i];
-            } else {
-                // 程式執行到此處代表：一對雙引號中的數字是含逗號
-                for (i=0; i<n; i++)
-                    buff[i]=row_data[i];
-
-                row_data = strtok(NULL, ",");
-                n = strlen(row_data);
-                if (row_data[n-1] == '\n')
-                    n--;
-                for (j=0; j<n-1; j++)
-                    buff[i++] = row_data[j];
-            }
-            buff[i] = '\0';
-
-            value = atoi(buff);
-        } else {
-            value = atoi(row_data);
-        }
-
-        sum += value;
-        printf("%10d, ", value);
-
+        printf("\t%s\n", row_data);
         row_data = strtok(NULL, ",");
     }
-    printf("sum = %d\n", sum);
   }
 
   fclose(fp);
