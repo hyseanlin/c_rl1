@@ -26,6 +26,7 @@ int main() {
     row_name = strtok(line, ",");
     printf("%s:\n ", row_name);
 
+    sum = 0;
     // 解讀每列第一欄之後的每一欄
     row_data = strtok(NULL, ",");
     while (row_data != NULL)
@@ -35,7 +36,6 @@ int main() {
 
         memset(buff, '\0', 1024);
 
-        printf("\t%s\n", row_data);
         if (row_data[0]=='\"' && row_data[strlen(row_data)-1]=='\"')
         {
             row_data++;
@@ -61,10 +61,14 @@ int main() {
             for (i=0; i<strlen(row_data); i++)
                 buff[i] = row_data[i];
         }
-        printf("\t\t%s\n", buff);
+        value = atoi(buff);
+        sum += value;
+        printf("%d,", value);
 
         row_data = strtok(NULL, ",");
     }
+    printf(" sum = %d", sum);
+    printf("\n");
   }
 
   fclose(fp);
