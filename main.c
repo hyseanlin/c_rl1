@@ -51,6 +51,8 @@ int main() {
                     buff[j] = row_data[i];
 
                 row_data = strtok(NULL, ",");
+                if (row_data[strlen(row_data)-1]=='\n')
+                    row_data[strlen(row_data)-1] = '\0';
             } while (row_data[strlen(row_data)-1]!='\"');
             row_data[strlen(row_data)-1] = '\0';
             for (i=0; i<strlen(row_data); i++, j++)
